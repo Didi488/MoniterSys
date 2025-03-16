@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>地图管理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+        .map_info_card {
+            position: absolute;
+            top: 175px;
+            left: 15px;
+            width: 200px;
+            background: rgba(0, 21, 41, 0.9);
+            border-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            padding: 12px 15px;
+            border: 1px solid rgba(84, 140, 247, 0.5);
+        }
+
+        .map_info_card .info_item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .map_info_card .info_item:last-child {
+            margin-bottom: 0;
+        }
+
+        .map_info_card .label {
+            color: #8cc8ff;
+            font-weight: normal;
+            padding: 0;
+            display: inline;
+        }
+
+        .map_info_card .value {
+            color: #fff;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(0,255,255,0.5);
+        }
+
+        .map_info_card .value.danger {
+            color: #ff4d4f;
+            text-shadow: 0 0 10px rgba(255,0,0,0.5);
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .map_info_card .value.safe {
+            color: #52c41a;
+            text-shadow: 0 0 10px rgba(82,196,26,0.5);
+        }
+        
+        .map_info_card .value.safe .status-dot {
+            background-color: #52c41a;
+            box-shadow: 0 0 10px rgba(82,196,26,0.8);
+        }
+
+        .map_info_card .value.warning {
+            color: #ff4d4f;
+            text-shadow: 0 0 10px rgba(255,77,79,0.5);
+        }
+
+        .map_info_card .value.warning .status-dot {
+            background-color: #ff4d4f;
+            box-shadow: 0 0 10px rgba(255,77,79,0.8);
+        }
+    </style>
+</head>
+<body>
+
+ 
+<main class="main">
+    <!--头部-->
+    <header class="heared">
+        <span class="head-logo">商品车全程监控</span>
+        <ul class="head-ul"><li><a href="index.html">首页</a> </li>
+            <li><a href="videlctr.html">视频监控</a> </li>
+            <li><a href="map.html" class="active-a">地图管理</a> </li>
+            <li><a href="form.html">表单信息</a> </li>
+            <li><a href="user.html">用户管理</a></li>
+            <li><a href="date.html">日程管理</a></li>
+            <li><a href="statistics.html">数据统计</a></li>
+            <li><a href="vehicle.html">车辆信息</a></li>
+        </ul>
+        <div class="head-right"><span id="time"></span><span>Admin</span></div>
+    </header>
+    <!--身体-->
+    <section class="section home">
+        <!-- 地图容器 -->
+        <div class="map_box" id="map_box"></div>
+
+        <!-- 顶部工具栏 -->
+        <div class="map_top">
+            <ul>
+                <li class="active"><i class="glyphicon glyphicon-pencil"></i><a href="javascript:void (0)" class="active">图层选择</a></li>
+                <li><i class="glyphicon glyphicon-zoom-in"></i><a href="javascript:void (0)">缩小</a></li>
+                <li><i class="glyphicon glyphicon-zoom-out"></i><a href="javascript:void (0)">放大</a></li>
+                <li><i class="glyphicon glyphicon-screenshot"></i><a href="javascript:void (0)">对比</a></li>
+                <li><i class="glyphicon glyphicon-search"></i><a href="javascript:void (0)">搜索</a></li>
+                <li><i class="glyphicon glyphicon-wrench"></i><a href="javascript:void (0)">工具</a></li>
+                <li><i class="glyphicon glyphicon-fullscreen"></i><a href="javascript:void (0)">全屏</a></li>
+            </ul>
+        </div>
+
+        <div class="map_info_card">
+            <div class="card_content">
+                <div class="info_item">
+                    <span class="label">温度:</span>
+                    <span class="value danger">26.5°C</span>
+                </div>
+                <div class="info_item">
+                    <span class="label">烟雾浓度:</span>
+                    <span class="value">0.03mg/m³</span>
+                </div>
+                <div class="info_item">
+                    <span class="label">火灾风险:</span>
+                    <span class="value safe">
+                        <i class="status-dot"></i>
+                        安全
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5ieMMexWmzB9jivTq6oCRX9j&callback"></script>
+<script src="js/map.js"></script>
+<script>
+    $(function(){
+        $(".head-ul li a").click(function(){
+            $(this).addClass("active-a").parents("li").siblings().find("a").removeClass("active-a");
+            $(this).parents('li').find("ul").show();
+            $(this).parents("li").sibling().find("ul").hide();
+        })
+        getTime();
+        setInterval(getTime, 1000);
+    })
+
+    function getTime(){
+        var day = new Date();
+        var year = day.getFullYear();
+        var month = day.getMonth()+1;
+        var date = day.getDate();
+        var hour = day.getHours();
+        var min = day.getMinutes();
+        var sec = day.getSeconds();
+        var str = year+'-'+month+'-'+date+' '+hour+":"+min+':'+sec;
+        $("#time").text(str);
+    }
+</script>
+</body>
+</html>

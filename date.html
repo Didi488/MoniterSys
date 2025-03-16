@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日程管理</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
+
+
+</head>
+<body >
+
+ 
+
+<main class="main">
+    <!--头部-->
+    <header class="heared">
+        <span class="head-logo">商品车全程监控</span>
+        <ul class="head-ul">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="videlctr.html">视频监控</a></li>
+            <li><a href="map.html">地图管理</a></li>
+            <li><a href="form.html">表单信息</a></li>
+            <li><a href="user.html">用户管理</a></li>
+            <li><a href="date.html" class="active-a">日程管理</a></li>
+            <li><a href="statistics.html">数据统计</a></li>
+            <li><a href="vehicle.html">车辆信息</a></li>
+        </ul>
+        <div class="head-right"><span id="time"></span><span>Admin</span></div>
+    </header>
+    <!--身体-->
+    <section class="section" >
+
+
+        <h6>日程管理</h6>
+        <div style="border-bottom: 1px #ccc solid;padding-bottom: 8px">
+            <p style="line-height: 24px;font-size: 14px;padding: 4px 0 0 36px ;color:#bb8940;background-image: url(img/ts_03.png);background-repeat: no-repeat;background-position: 10px 8px;font-weight: bold">
+                温馨提示</p>
+            <ul class="ts">
+                <li><span>*</span>该页面主要显示的是日程管理的类容。</li>
+
+            </ul>
+        </div>
+        <div id="main">
+            <div id='calendar'></div>
+        </div>
+        <div class="schedule-list">
+            <div class="schedule-item">
+                <div class="schedule-time">09:00 - 10:30</div>
+                <div class="schedule-content">
+                    <h4>运营部门周例会</h4>
+                    <p class="location">地点：三楼会议室A</p>
+                    <p class="participants">参与人：运营部全体成员</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">11:00 - 12:00</div>
+                <div class="schedule-content">
+                    <h4>车辆调度系统培训</h4>
+                    <p class="location">地点：培训室B</p>
+                    <p class="participants">参与人：调度组成员</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">14:00 - 15:30</div>
+                <div class="schedule-content">
+                    <h4>安全监控系统升级讨论</h4>
+                    <p class="location">地点：技术部会议室</p>
+                    <p class="participants">参与人：技术部、安全监控组</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">16:00 - 17:00</div>
+                <div class="schedule-content">
+                    <h4>新员工入职培训</h4>
+                    <p class="location">地点：培训室A</p>
+                    <p class="participants">参与人：HR部门、新入职员工</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">17:30 - 18:30</div>
+                <div class="schedule-content">
+                    <h4>月度工作总结会议</h4>
+                    <p class="location">地点：大会议室</p>
+                    <p class="participants">参与人：各部门负责人</p>
+                </div>
+            </div>
+        </div>
+        <style>
+            .schedule-list {
+                padding: 20px;
+            }
+            .schedule-item {
+                background: rgba(0, 60, 136, 0.3);
+                border: 1px solid #00ffff;
+                border-radius: 4px;
+                margin-bottom: 15px;
+                padding: 15px;
+                display: flex;
+                gap: 20px;
+            }
+            .schedule-time {
+                min-width: 120px;
+                color: #00ffff;
+                font-weight: bold;
+                border-right: 1px solid #00ffff;
+                padding-right: 20px;
+            }
+            .schedule-content {
+                flex: 1;
+            }
+            .schedule-content h4 {
+                margin: 0 0 10px 0;
+                color: #fff;
+            }
+            .schedule-content p {
+                margin: 5px 0;
+                color: #ccc;
+            }
+            .schedule-content .location {
+                color: #00ffff;
+                font-weight: 500;
+            }
+            .schedule-content .participants {
+                color: #ffd700;
+                font-weight: 500;
+            }
+        </style>
+
+    </section>
+
+</main>
+<script src="js/jquery.js"></script>
+<script src='js/fullcalendar.min.js'></script>
+
+
+<script>
+    $(function(){
+        // 移除所有已有的active-a类
+        $(".head-ul li a").removeClass("active-a");
+        
+        // 根据当前页面URL设置导航栏高亮
+        var currentPage = window.location.pathname.split("/").pop();
+        $(".head-ul li a").each(function(){
+            var href = $(this).attr("href");
+            if(href === currentPage){
+                $(this).addClass("active-a");
+            }
+        });
+        
+        // 点击事件处理
+        $(".head-ul li a").click(function(){
+            $(".head-ul li a").removeClass("active-a"); // 先移除所有active-a类
+            $(this).addClass("active-a"); // 只给当前点击的添加active-a类
+        });
+        
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: [
+                {
+                    title: '周例会',
+                    start: '2024-04-17',
+                    color: '#00ffff'
+                },
+                {
+                    title: '系统培训',
+                    start: '2024-04-19',
+                    color: '#ffd700'
+                },
+                {
+                    title: '月度总结',
+                    start: '2024-04-30',
+                    color: '#ff69b4'
+                }
+            ],
+            dayClick: function(date, allDay, jsEvent, view) {
+                var selDate =$.fullCalendar.formatDate(date,'yyyy-MM-dd');
+                layer.open({
+                    type: 2,
+                    title: '新建事件',
+                    shadeClose: true,
+                    shade: 0.5,
+                    skin: 'layui-layer-rim',
+                    closeBtn:1,
+                    area: ['700px', '474px'],
+                    content: 'cal_optTail.html?'+ selDate
+                });
+            },
+            eventClick: function(event, jsEvent, view) {
+                console.log(event);
+                layer.open({
+                    type: 2,
+                    title: '编辑事件',
+                    shadeClose: true,
+                    shade: 0.5,
+                    skin: 'layui-layer-rim',
+                    closeBtn:1,
+                    area: ['700px', '474px'],
+                    content: 'user_tail.html?'+ selDate
+                });
+            }
+        });
+
+        getTime();
+    })
+//    格式化时间
+   function getTime(){
+       var day=new Date();
+       var year=day.getFullYear();
+       var moutth=day.getMonth()+1;
+       var date=day.getDate();
+       var hour=day.getHours();
+       var min=day.getMinutes();
+       var sec=day.getSeconds();
+       var str=year+'-'+moutth+'-'+date+' '+hour+":"+min+':'+sec;
+       $("#time").text(str);
+   }
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车辆信息</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+        .vehicle-container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            height: calc(100vh - 60px);
+        }
+
+        .vehicle-list {
+            background: rgba(0, 21, 41, 0.9);
+            border-radius: 4px;
+            border: 1px solid rgba(84, 140, 247, 0.5);
+        }
+
+        .list-header {
+            padding: 15px;
+            border-bottom: 1px solid rgba(84, 140, 247, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-header h3 {
+            margin: 0;
+            color: #8cc8ff;
+            font-size: 16px;
+        }
+
+        .search-box {
+            padding: 15px;
+            border-bottom: 1px solid rgba(84, 140, 247, 0.3);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid rgba(84, 140, 247, 0.5);
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .vehicle-items {
+            height: calc(100% - 120px);
+            overflow-y: auto;
+        }
+
+        .vehicle-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(84, 140, 247, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .vehicle-item:hover {
+            background: rgba(84, 140, 247, 0.1);
+        }
+
+        .vehicle-item.active {
+            background: rgba(84, 140, 247, 0.2);
+        }
+
+        .vehicle-item h4 {
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .vehicle-info {
+            font-size: 12px;
+            color: #8cc8ff;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .map-container {
+            background: rgba(0, 21, 41, 0.9);
+            border-radius: 4px;
+            border: 1px solid rgba(84, 140, 247, 0.5);
+            display: grid;
+            grid-template-rows: auto 1fr;
+        }
+
+        .route-info {
+            padding: 15px;
+            border-bottom: 1px solid rgba(84, 140, 247, 0.3);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .info-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .info-card .label {
+            color: #8cc8ff;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-card .value {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        #vehicleMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 自定义滚动条 */
+        .vehicle-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .vehicle-items::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .vehicle-items::-webkit-scrollbar-thumb {
+            background: rgba(84, 140, 247, 0.5);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <!--头部-->
+        <header class="heared">
+            <span class="head-logo">商品车全程监控</span>
+            <ul class="head-ul">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="videlctr.html">视频监控</a></li>
+                <li><a href="map.html">地图管理</a></li>
+                <li><a href="form.html">表单信息</a></li>
+                <li><a href="user.html">用户管理</a></li>
+                <li><a href="date.html">日程管理</a></li>
+                <li><a href="statistics.html">数据统计</a></li>
+                <li><a href="vehicle.html" class="active-a">车辆信息</a></li>
+            </ul>
+            <div class="head-right"><span id="time"></span><span>Admin</span></div>
+        </header>
+
+        <!--身体-->
+        <section class="section">
+            <div class="vehicle-container">
+                <!-- 左侧车辆列表 -->
+                <div class="vehicle-list">
+                    <div class="list-header">
+                        <h3>运输车辆列表</h3>
+                        <span class="refresh-btn"><i class="glyphicon glyphicon-refresh"></i></span>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" placeholder="搜索车牌号/车型...">
+                    </div>
+                    <div class="vehicle-items">
+                        <!-- 车辆列表项 -->
+                    </div>
+                </div>
+
+                <!-- 右侧地图和详情 -->
+                <div class="map-container">
+                    <div class="route-info">
+                        <div class="info-card">
+                            <span class="label">起点</span>
+                            <div class="value">西安市未央区</div>
+                        </div>
+                        <div class="info-card">
+                            <span class="label">终点</span>
+                            <div class="value">北京市朝阳区</div>
+                        </div>
+                        <div class="info-card">
+                            <span class="label">预计到达</span>
+                            <div class="value">2024-03-21 14:30</div>
+                        </div>
+                    </div>
+                    <div id="vehicleMap"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5ieMMexWmzB9jivTq6oCRX9j&callback"></script>
+    <script>
+        // 模拟车辆数据
+        const vehicles = [
+            { id: 1, plate: '陕A12345', type: '东风', status: '在途', location: '西安市', progress: '35%',
+             start: '西安市未央区物流园', end: '西安市浐灞生态区', startPoint: [108.946465,34.347269], endPoint: [109.064359,34.350545] },
+            { id: 2, plate: '京B67890', type: '日产', status: '装货中', location: '北京市', progress: '0%',
+             start: '北京市顺义区空港物流园', end: '北京市朝阳区酒仙桥', startPoint: [116.543459,40.109597], endPoint: [116.486409,39.978991] },
+            { id: 3, plate: '沪C11111', type: '丰田', status: '在途', location: '上海市', progress: '78%',
+             start: '上海市宝山区宝杨路码头', end: '上海市浦东新区外高桥', startPoint: [121.471347,31.405054], endPoint: [121.568080,31.350891] },
+            { id: 4, plate: '粤D22222', type: '大众', status: '在途', location: '广州市', progress: '45%',
+             start: '广州市黄埔港码头', end: '广州市白云机场', startPoint: [113.468874,23.072857], endPoint: [113.298987,23.392211] }
+        ];
+
+        let currentMap = null;
+        let currentDriving = null;
+
+        // 渲染车辆列表
+        function renderVehicleList() {
+            const container = $('.vehicle-items');
+            container.empty();
+            
+            vehicles.forEach(vehicle => {
+                container.append(`
+                    <div class="vehicle-item" data-id="${vehicle.id}">
+                        <h4>${vehicle.plate}</h4>
+                        <div class="vehicle-info">
+                            <span>${vehicle.type}</span>
+                            <span>${vehicle.status}</span>
+                            <span>${vehicle.progress}</span>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        // 初始化百度地图
+        function initMap() {
+            const map = new BMap.Map("vehicleMap");
+            map.centerAndZoom(new BMap.Point(108.946465,34.347269), 5);
+            map.enableScrollWheelZoom();
+            map.addControl(new BMap.NavigationControl());
+            map.addControl(new BMap.ScaleControl());
+            currentMap = map;
+            return map;
+        }
+
+        // 显示车辆路线
+        function showVehicleRoute(vehicleId) {
+            const vehicle = vehicles.find(v => v.id === vehicleId);
+            if (!vehicle) return;
+
+            // 更新路线信息卡片
+            $('.info-card:nth-child(1) .value').text(vehicle.start);
+            $('.info-card:nth-child(2) .value').text(vehicle.end);
+
+            // 清除之前的路线
+            currentMap.clearOverlays();
+            if (currentDriving) {
+                currentDriving.clearResults();
+            }
+
+            // 先定位到当前车辆位置
+            const currentLocation = new BMap.Point(vehicle.startPoint[0], vehicle.startPoint[1]);
+            currentMap.centerAndZoom(currentLocation, 12);
+
+            // 创建起点和终点标记
+            const startPoint = new BMap.Point(vehicle.startPoint[0], vehicle.startPoint[1]);
+            const endPoint = new BMap.Point(vehicle.endPoint[0], vehicle.endPoint[1]);
+
+            // 添加起点和终点标记
+            const startMarker = new BMap.Marker(startPoint);
+            const endMarker = new BMap.Marker(endPoint);
+            // 添加车辆当前位置标记（使用不同的图标）
+            const carIcon = new BMap.Icon("img/car.png", new BMap.Size(32, 32), {
+                imageSize: new BMap.Size(32, 32)
+            });
+            const carMarker = new BMap.Marker(currentLocation, {
+                icon: carIcon
+            });
+            currentMap.addOverlay(startMarker);
+            currentMap.addOverlay(endMarker);
+            currentMap.addOverlay(carMarker);
+
+            // 添加起点和终点标签
+            const startLabel = new BMap.Label("起点: " + vehicle.start, {
+                position: startPoint,
+                offset: new BMap.Size(20, -10)
+            });
+            const endLabel = new BMap.Label("终点: " + vehicle.end, {
+                position: endPoint,
+                offset: new BMap.Size(20, -10)
+            });
+            const carLabel = new BMap.Label("当前位置: " + vehicle.location, {
+                position: currentLocation,
+                offset: new BMap.Size(20, -10)
+            });
+            currentMap.addOverlay(startLabel);
+            currentMap.addOverlay(endLabel);
+            currentMap.addOverlay(carLabel);
+
+            // 创建驾车路线规划
+            currentDriving = new BMap.DrivingRoute(currentMap, {
+                renderOptions: {
+                    map: currentMap,
+                    autoViewport: true,
+                    enableDragging: true
+                },
+                onSearchComplete: function(results) {
+                    if (results.getStatus() === 0) {
+                        const plan = results.getPlan(0);
+                        const duration = plan.getDuration(true);
+                        const distance = plan.getDistance(true);
+                        
+                        // 更新预计到达时间
+                        const now = new Date();
+                        now.setMinutes(now.getMinutes() + Math.floor(plan.getDuration() / 60));
+                        const arrivalTime = now.toLocaleString('zh-CN', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        $('.info-card:nth-child(3) .value').text(arrivalTime);
+                        
+                        // 添加行程信息标签
+                        const routeInfo = new BMap.Label(
+                            `总距离: ${distance}\n预计用时: ${duration}`, 
+                            {
+                                position: currentLocation,
+                                offset: new BMap.Size(20, 10)
+                            }
+                        );
+                        currentMap.addOverlay(routeInfo);
+                    }
+                }
+            });
+
+            // 搜索路线
+            currentDriving.search(startPoint, endPoint);
+        }
+
+        $(function(){
+            // 初始化时间显示
+            function getTime(){
+                var day = new Date();
+                var year = day.getFullYear();
+                var month = day.getMonth()+1;
+                var date = day.getDate();
+                var hour = day.getHours();
+                var min = day.getMinutes();
+                var sec = day.getSeconds();
+                var str = year+'-'+month+'-'+date+' '+hour+":"+min+':'+sec;
+                $("#time").text(str);
+            }
+            
+            getTime();
+            setInterval(getTime, 1000);
+
+            // 初始化车辆列表
+            renderVehicleList();
+
+            // 初始化地图
+            const map = initMap();
+
+            // 绑定车辆列表点击事件
+            $('.vehicle-items').on('click', '.vehicle-item', function() {
+                const vehicleId = $(this).data('id');
+                $('.vehicle-item').removeClass('active');
+                $(this).addClass('active');
+                showVehicleRoute(vehicleId);
+            });
+
+            // 绑定搜索功能
+            $('.search-box input').on('input', function() {
+                const searchText = $(this).val().toLowerCase();
+                $('.vehicle-item').each(function() {
+                    const text = $(this).text().toLowerCase();
+                    $(this).toggle(text.includes(searchText));
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

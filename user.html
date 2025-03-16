@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link href="plugin/bstable/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="plugin/bstable/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/table.css">
+    <style>
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .leftTree {
+            float: left;
+            width: 20%;
+            background-color: #fff;
+            border: 1px solid #e0e6ed;
+            border-radius: 4px;
+            padding: 15px;
+            margin-right: 1%;
+        }
+        .rightTable {
+            float: right;
+            width: 78%;
+            background-color: #fff;
+            border: 1px solid #e0e6ed;
+            border-radius: 4px;
+            padding: 15px;
+        }
+        .table {
+            background-color: #fff;
+        }
+        .table thead th {
+            background-color: #f5f7fa;
+            color: #606266;
+            font-weight: 500;
+        }
+        .table tbody td {
+            color: #606266;
+        }
+        .btn-primary {
+            background-color: #409eff;
+            border-color: #409eff;
+        }
+        .btn-info {
+            background-color: #67c23a;
+            border-color: #67c23a;
+        }
+        .treeOne, .treeTwo, .treeThree {
+            color: #606266;
+            padding: 8px;
+            border-radius: 4px;
+            margin: 2px 0;
+        }
+        .treeOne:hover, .treeTwo:hover, .treeThree:hover {
+            background-color: #f5f7fa;
+        }
+    </style>
+</head>
+<body style="background-color: #f0f2f5">
+
+ 
+<main class="main">
+    <!--头部-->
+    <header class="heared">
+        <span class="head-logo">商品车全程监控</span>
+        <ul class="head-ul"><li><a href="index.html">首页</a> </li>
+            <li><a href="videlctr.html">视频监控</a> </li>
+            <li><a href="map.html">地图管理</a> </li>
+            <li><a href="form.html">表单信息</a> </li>
+            <li><a href="user.html" class="active-a">用户管理</a></li>
+            <li><a href="date.html">日程管理</a></li>
+                    <li><a href="statistics.html">数据统计</a></li>
+            <li><a href="vehicle.html">车辆信息</a></li>
+
+        </ul>
+        <div class="head-right"><span id="time"></span><span>Admin</span></div>
+    </header>
+    <!--身体-->
+    <section class="section">
+        <div class="leftTree">
+            <ul class="treeUl">
+                <li>
+                    <div class="treeOne">总公司</div>
+                    <ul>
+                        <li>
+                            <div class="treeTwo">运营管理部</div>
+                            <ul>
+                                <li><div class="treeThree">车辆调度组</div></li>
+                                <li><div class="treeThree">安全监控组</div></li>
+                                <li><div class="treeThree">路线规划组</div></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="treeTwo">技术研发部</div>
+                            <ul>
+                                <li><div class="treeThree">系统开发组</div></li>
+                                <li><div class="treeThree">硬件维护组</div></li>
+                                <li><div class="treeThree">数据分析组</div></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="treeTwo">人力资源部</div>
+                            <ul>
+                                <li><div class="treeThree">招聘培训组</div></li>
+                                <li><div class="treeThree">绩效考核组</div></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="treeTwo">财务部</div>
+                            <ul>
+                                <li><div class="treeThree">会计核算组</div></li>
+                                <li><div class="treeThree">预算管理组</div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="rightTable">
+            <div class="operation-buttons" style="margin-bottom: 15px; text-align: right;">
+                <button class="btn btn-primary" onclick="addUser()">添加用户</button>
+                <button class="btn btn-info" onclick="editDepartment()">编辑部门</button>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>用户名</th>
+                        <th>性别</th>
+                        <th>年龄</th>
+                        <th>部门</th>
+                        <th>职位</th>
+                        <th>角色</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>admin</td>
+                        <td>男</td>
+                        <td>35</td>
+                        <td>总经办</td>
+                        <td>系统管理员</td>
+                        <td>超级管理员</td>
+                        <td>系统管理员</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>zhangsan</td>
+                        <td>男</td>
+                        <td>32</td>
+                        <td>运营部</td>
+                        <td>部门经理</td>
+                        <td>管理员</td>
+                        <td>部门主管</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>lisi</td>
+                        <td>女</td>
+                        <td>28</td>
+                        <td>技术部</td>
+                        <td>工程师</td>
+                        <td>普通用户</td>
+                        <td>开发人员</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>wangwu</td>
+                        <td>男</td>
+                        <td>30</td>
+                        <td>人事部</td>
+                        <td>主管</td>
+                        <td>普通用户</td>
+                        <td>人事专员</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>zhaoliu</td>
+                        <td>男</td>
+                        <td>33</td>
+                        <td>财务部</td>
+                        <td>财务主管</td>
+                        <td>管理员</td>
+                        <td>财务负责人</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>qianqi</td>
+                        <td>女</td>
+                        <td>29</td>
+                        <td>技术部</td>
+                        <td>UI设计师</td>
+                        <td>普通用户</td>
+                        <td>设计师</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>sunba</td>
+                        <td>男</td>
+                        <td>31</td>
+                        <td>运营部</td>
+                        <td>运营专员</td>
+                        <td>普通用户</td>
+                        <td>运营人员</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>zhoujiu</td>
+                        <td>女</td>
+                        <td>27</td>
+                        <td>人事部</td>
+                        <td>招聘专员</td>
+                        <td>普通用户</td>
+                        <td>招聘HR</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>wushi</td>
+                        <td>男</td>
+                        <td>34</td>
+                        <td>技术部</td>
+                        <td>架构师</td>
+                        <td>管理员</td>
+                        <td>技术负责人</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>chenshi</td>
+                        <td>女</td>
+                        <td>26</td>
+                        <td>财务部</td>
+                        <td>会计</td>
+                        <td>普通用户</td>
+                        <td>财务人员</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+</main>
+<script src="js/jquery.js"></script>
+<script src="plugin/bstable/js/bootstrap.min.js"></script>
+<script src="plugin/bstable/js/bootstrap-table.js"></script>
+<script src="plugin/bstable/js/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript" src="plugin/ztree/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="plugin/ztree/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="plugin/ztree/jquery.ztree.exedit-3.5.js"></script>
+<script src="plugin/layer_v2.1/layer/layer.js"></script>
+<script src="js/organize.js"></script>
+
+<script>
+    $(function(){
+        // 根据当前页面URL设置导航栏高亮
+        var currentPage = window.location.pathname.split("/").pop();
+        $(".head-ul li a").each(function(){
+            var href = $(this).attr("href");
+            if(href === currentPage){
+                $(this).addClass("active-a");
+            } else {
+                $(this).removeClass("active-a");
+            }
+        });
+        
+        $(".head-ul li a").click(function(){
+            $(this).addClass("active-a").parents("li").siblings().find("a").removeClass("active-a");
+            $(this).parents('li').find("ul").show();
+            $(this).parents("li").siblings().find("ul").hide();
+        })
+        $('#table').bootstrapTable({
+            method: "get",
+            striped: true,
+            singleSelect: false,
+            url: "json/user.json",
+            dataType: "json",
+            pagination: true, //分页
+            pageSize: 10,
+            pageNumber: 1,
+            search: false, //显示搜索框
+            contentType: "application/x-www-form-urlencoded",
+            queryParams: null,
+            columns: [
+                {
+                    checkbox: "true",
+                    field: 'check',
+                    align: 'center',
+                    valign: 'middle'
+                }
+                ,
+                {
+                    title: "用户名",
+                    field: 'id',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '性别',
+                    field: 'sex',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '年龄',
+                    field: 'date',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '部门',
+                    field: 'person',
+                    align: 'center'
+                },
+                {
+                    title: '职位',
+                    field: 'oper',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '角色',
+                    field: 'title',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '备注',
+                    field: 'person',
+                    align: 'center'
+                }
+            ]
+        });
+        getTime();
+    })
+//    格式化时间
+   function getTime(){
+       var day=new Date();
+       var year=day.getFullYear();
+       var moutth=day.getMonth()+1;
+       var date=day.getDate();
+       var hour=day.getHours();
+       var min=day.getMinutes();
+       var sec=day.getSeconds();
+       var str=year+'-'+moutth+'-'+date+' '+hour+":"+min+':'+sec;
+       $("#time").text(str);
+   }
+
+    function addUser() {
+        layer.open({
+            type: 2,
+            title: '添加用户',
+            shadeClose: true,
+            shade: 0.5,
+            area: ['600px', '500px'],
+            content: 'add_user.html'
+        });
+    }
+
+    function editDepartment() {
+        layer.open({
+            type: 2,
+            title: '编辑部门',
+            shadeClose: true,
+            shade: 0.5,
+            area: ['500px', '600px'],
+            content: 'edit_department.html'
+        });
+    }
+</script>
+</body>
+</html>

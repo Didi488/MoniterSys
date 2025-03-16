@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据统计</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <style>
+        .statistics-container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .chart-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 15px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .chart-header {
+            margin-bottom: 15px;
+        }
+
+        .chart-header h3 {
+            color: #1890ff;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .chart-content {
+            height: 350px;
+        }
+
+        .data-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: rgba(0, 21, 41, 0.9);
+            border-radius: 4px;
+            padding: 15px;
+            border: 1px solid rgba(84, 140, 247, 0.5);
+        }
+
+        .summary-card .label {
+            color: #8cc8ff;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .summary-card .value {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .summary-card .trend {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .trend.up {
+            color: #52c41a;
+        }
+
+        .trend.down {
+            color: #ff4d4f;
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <!--头部-->
+        <header class="heared">
+            <span class="head-logo">商品车全程监控</span>
+            <ul class="head-ul">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="videlctr.html">视频监控</a></li>
+                <li><a href="map.html">地图管理</a></li>
+                <li><a href="form.html">表单信息</a></li>
+                <li><a href="user.html">用户管理</a></li>
+                <li><a href="date.html">日程管理</a></li>
+                <li><a href="statistics.html" class="active-a">数据统计</a></li>
+                <li><a href="vehicle.html">车辆信息</a></li>
+            </ul>
+            <div class="head-right"><span id="time"></span><span>Admin</span></div>
+        </header>
+
+        <!--身体-->
+        <section class="section">
+            <!-- 数据概览 -->
+            <div class="data-summary">
+                <div class="summary-card">
+                    <span class="label">今日运输总量</span>
+                    <div class="value">1,562</div>
+                    <div class="trend up">↑8.2%</div>
+                </div>
+                <div class="summary-card">
+                    <span class="label">在途车辆</span>
+                    <div class="value">128</div>
+                    <div class="trend up">↑12.5%</div>
+                </div>
+                <div class="summary-card">
+                    <span class="label">完成率</span>
+                    <div class="value">86.5%</div>
+                    <div class="trend down">↓2.1%</div>
+                </div>
+                <div class="summary-card">
+                    <span class="label">异常数</span>
+                    <div class="value">3</div>
+                    <div class="trend down">↓25%</div>
+                </div>
+            </div>
+
+            <!-- 图表区域 -->
+            <div class="statistics-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>运输量趋势</h3>
+                    </div>
+                    <div class="chart-content" id="transportTrend"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>车辆类型分布</h3>
+                    </div>
+                    <div class="chart-content" id="vehicleTypes"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>异常情况分析</h3>
+                    </div>
+                    <div class="chart-content" id="errorAnalysis"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>运输路线热度</h3>
+                    </div>
+                    <div class="chart-content" id="routeHeat"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        // 时间显示
+        function getTime(){
+            var day = new Date();
+            var year = day.getFullYear();
+            var month = day.getMonth()+1;
+            var date = day.getDate();
+            var hour = day.getHours();
+            var min = day.getMinutes();
+            var sec = day.getSeconds();
+            var str = year+'-'+month+'-'+date+' '+hour+":"+min+':'+sec;
+            $("#time").text(str);
+        }
+
+        // 初始化所有图表
+        function initCharts() {
+            // 运输量趋势图
+            var transportChart = echarts.init(document.getElementById('transportTrend'));
+            transportChart.setOption({
+                tooltip: {
+                    trigger: 'axis'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                    axisLine: { lineStyle: { color: '#8cc8ff' } }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine: { lineStyle: { color: '#8cc8ff' } },
+                    splitLine: { lineStyle: { color: 'rgba(84, 140, 247, 0.2)' } }
+                },
+                series: [{
+                    name: '运输量',
+                    type: 'line',
+                    smooth: true,
+                    data: [820, 932, 901, 934, 1290, 1330, 1320],
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: 'rgba(82, 196, 26, 0.3)'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(82, 196, 26, 0)'
+                        }])
+                    }
+                }]
+            });
+
+            // 车辆类型分布图
+            var vehicleChart = echarts.init(document.getElementById('vehicleTypes'));
+            vehicleChart.setOption({
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    right: 10,
+                    top: 'center',
+                    textStyle: { color: '#8cc8ff' }
+                },
+                series: [{
+                    name: '车辆类型',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    center: ['40%', '50%'],
+                    data: [
+                        {value: 335, name: '大众'},
+                        {value: 310, name: '东风'},
+                        {value: 234, name: '日产'},
+                        {value: 135, name: '宏光'},
+                        {value: 154, name: '其他'}
+                    ]
+                }]
+            });
+
+            // 异常情况分析图
+            var errorChart = echarts.init(document.getElementById('errorAnalysis'));
+            errorChart.setOption({
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [{
+                    type: 'category',
+                    data: ['超速', '偏航', '超时', '故障', '其他'],
+                    axisLine: { lineStyle: { color: '#8cc8ff' } }
+                }],
+                yAxis: [{
+                    type: 'value',
+                    axisLine: { lineStyle: { color: '#8cc8ff' } },
+                    splitLine: { lineStyle: { color: 'rgba(84, 140, 247, 0.2)' } }
+                }],
+                series: [{
+                    type: 'bar',
+                    data: [10, 8, 5, 3, 2]
+                }]
+            });
+
+            // 路线热度图
+            var routeChart = echarts.init(document.getElementById('routeHeat'));
+            routeChart.setOption({
+                tooltip: {
+                    trigger: 'axis'
+                },
+                radar: {
+                    indicator: [
+                        { name: '路线A', max: 100},
+                        { name: '路线B', max: 100},
+                        { name: '路线C', max: 100},
+                        { name: '路线D', max: 100},
+                        { name: '路线E', max: 100}
+                    ],
+                    splitLine: {
+                        lineStyle: {
+                            color: 'rgba(84, 140, 247, 0.2)'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: 'rgba(84, 140, 247, 0.5)'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'radar',
+                    data: [{
+                        value: [85, 65, 55, 90, 82],
+                        name: '使用频率'
+                    }],
+                    areaStyle: {
+                        color: 'rgba(82, 196, 26, 0.3)'
+                    }
+                }]
+            });
+        }
+
+        $(function(){
+            getTime();
+            setInterval(getTime, 1000);
+            initCharts();
+
+            // 窗口大小改变时重绘图表
+            window.addEventListener('resize', function() {
+                echarts.init(document.getElementById('transportTrend')).resize();
+                echarts.init(document.getElementById('vehicleTypes')).resize();
+                echarts.init(document.getElementById('errorAnalysis')).resize();
+                echarts.init(document.getElementById('routeHeat')).resize();
+            });
+        });
+    </script>
+</body>
+</html> 

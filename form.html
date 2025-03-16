@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/registe.css">
+    <style type="text/css">
+        .table_p{line-height: 28px;margin:0 4.5% 10px 20px;border-bottom: 1px #d0e6ec solid;position: relative}
+        .table_p span{border-bottom: 3px #42cdec solid;display: inline-block;position: absolute;bottom: -1px;font-weight: bold;font-size: 14px}
+        .but_p button{width: 120px; margin-right: 10px; /* 增加按钮宽度并设置右边距 */}
+    </style>
+</head>
+<body style="background-color: #e6ecf5;min-width: 1100px">
+
+ 
+
+<main class="main">
+    <!--头部-->
+    <header class="heared">
+        <span class="head-logo">商品车全程监控</span>
+        <ul class="head-ul"><li><a href="index.html" >首页</a> </li>
+            <li><a href="videlctr.html">视频监控</a> </li>
+            <li><a href="map.html">地图管理</a> </li>
+            <li><a href="form.html" class="active-a">表单信息</a> </li>
+            <li><a href="user.html">用户管理</a></li>
+            <li><a href="date.html">日程管理</a></li>
+            <li><a href="statistics.html">数据统计</a></li>
+            <li><a href="vehicle.html">车辆信息</a></li>
+        </ul>
+        <div class="head-right"><span id="time"></span><span>Admin</span></div>
+    </header>
+    <!--身体-->
+    <section class="section" style="min-height: calc(100vh - 100px);">
+        <div class="book_con01" style="height: 100%;">
+            <h1 class="book_h01">工单登记</h1>
+            <form style="height: 100%;">
+                <div class="top" style="height: 80%;">
+                    <div>
+                        <div class="top_out">
+                            <table class="table">
+                                <tbody>
+                                <p class="table_p"><span>来电信息</span></p>
+                                <tr>
+                                    <td>来电号码<span></span></td>
+                                    <td>
+                                        <input type="text">
+                                    </td>
+                                    <td>坐席工号<span></span></td>
+                                    <td>
+                                        <input type="text">
+                                    </td>
+                                    <td>坐席电话<span></span></td>
+                                    <td>
+                                        <input type="text">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>来电姓名<span></span></td>
+                                    <td>
+                                        <input type="text">
+                                    </td>
+                                    <td>客户性别<span></span></td>
+                                    <td>
+                                        <select >
+                                            <option>男</option>
+                                            <option>女</option>
+                                        </select>
+                                    </td>
+                                    <td>客户年龄<span></span></td>
+                                    <td>
+                                        <input type="text">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table">
+                                <tbody>
+                                <p class="table_p"><span>信息</span></p>
+                                <tr>
+                                    <td>编号<span></span></td>
+                                    <td>
+                                        <input type="text">
+                                    </td>
+                                    <td>来源<span></span></td>
+                                    <td>
+                                        <select>
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </td>
+                                    <td>来电类型<span></span></td>
+                                    <td>
+                                        <select>
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>问题大类<span></span></td>
+                                    <td>
+                                        <select>
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </td>
+                                    <td>问题小类<span></span></td>
+                                    <td>
+                                        <select>
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </td>
+                                    <td>处理时限<span></span></td>
+                                    <td>
+                                        <select>
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>所属区域<span></span></td>
+                                    <td>
+                                        <select>
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </td>
+                                    <td>所属<span></span></td>
+                                    <td>
+                                        <select>
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </td>
+                                    <td>所属<span></span></td>
+                                    <td>
+                                        <select>
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>描述<span></span></td>
+                                    <td colspan = "8" style="text-align: left">
+                                        <textarea   class="form_area" style="height: 80px"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>短信回复<span></span></td>
+                                    <td colspan = "8" style="text-align: left">
+                                        <textarea   class="form_area" style="height: 80px"></textarea>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="but_p" style="margin-top: 20px;">
+                    <button class="but_save">保存</button>
+                    <button class="but_close">发送短信</button>
+                    <button class="but_close">打开知识库</button>
+                </div>
+                <!-- 新增底部内容 -->
+                <div class="footer-content" style="margin-top: 30px; padding: 20px; background: #f5f5f5;">
+                    <h3>工单处理指南</h3>
+                    <ul>
+                        <li>请确保所有必填项都已填写</li>
+                        <li>描述问题时请尽量详细</li>
+                        <li>发送短信前请仔细检查内容</li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</main>
+<script src="js/jquery.js"></script>
+
+<script>
+    $(function(){
+        // 根据当前页面URL设置导航栏高亮
+        var currentPage = window.location.pathname.split("/").pop();
+        $(".head-ul li a").each(function(){
+            var href = $(this).attr("href");
+            if(href === currentPage){
+                $(this).addClass("active-a");
+            } else {
+                $(this).removeClass("active-a");
+            }
+        });
+        
+        $(".head-ul li a").click(function(){
+            $(this).addClass("active-a").parents("li").siblings().find("a").removeClass("active-a");
+            $(this).parents('li').find("ul").show();
+            $(this).parents("li").siblings().find("ul").hide();
+        })
+        getTime();
+        setInterval(getTime, 1000);
+    })
+//    格式化时间
+   function getTime(){
+       var day=new Date();
+       var year=day.getFullYear();
+       var month = (day.getMonth() + 1).toString().padStart(2, '0');
+       var date=day.getDate().toString().padStart(2, '0');
+       var hour=day.getHours().toString().padStart(2, '0');
+       var min=day.getMinutes().toString().padStart(2, '0');
+       var sec=day.getSeconds().toString().padStart(2, '0');
+       var str=year+'-'+month+'-'+date+' '+hour+":"+min+':'+sec;
+       $("#time").text(str);
+   }
+</script>
+</body>
+</html>

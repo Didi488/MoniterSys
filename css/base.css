@@ -1,0 +1,274 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+}
+a{
+    text-decoration: none;
+}
+.main{
+    width: 100%;
+    min-height: 100vh;
+    position: absolute;
+    overflow-x: hidden;
+}
+.heared{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #151a30;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+}
+.head-logo{
+    position: absolute;
+    left: 20px;
+    width: 180px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 22px;
+    color: #1890ff;
+    font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    white-space: nowrap;
+    background: linear-gradient(90deg, #1890ff, #69c0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(24,144,255,0.3);
+    font-weight: 500;
+}
+.head-logo:hover {
+    text-shadow: 0 0 15px rgba(24,144,255,0.5);
+}
+.head-ul{
+    position: absolute;
+    left: 220px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+}
+.head-ul li{
+    height: 60px;
+    line-height: 60px;
+    margin: 0;
+    padding: 0;
+    flex: none;
+    width: 100px;
+    text-align: center;
+}
+.head-ul li a{
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    white-space: nowrap;
+    padding: 0;
+    transition: color 0.3s;
+}
+.head-ul li a:hover, .head-ul li a.active-a {
+    color: #3c8dbc;
+    background-color: #1e2846;
+}
+.active-a{
+    color: #1890ff !important;
+    position: relative;
+}
+.active-a::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #1890ff;
+    box-shadow: 0 0 8px #1890ff;
+}
+.head-ul>li>ul{
+    background-color: #242938;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    display: none;
+}
+.head-ul>li>ul li{
+    list-style: none;
+    padding: 0 10px;
+}
+.head-ul>li>ul li a{
+    color: #ffffff;
+    font-size: 1rem;
+}
+.head-right {
+    position: absolute;
+    right: 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+#time {
+    display: inline-block;
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 16px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin-right: 15px;
+    font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    white-space: nowrap;
+}
+.head-right span:last-child {
+    display: inline-block;
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 16px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    white-space: nowrap;
+}
+.section{
+    margin-top: 60px;
+    padding-top: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: calc(100vh - 60px); 
+}
+.home{
+    background-image: url("../img/bg-home.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px 20px;
+}
+.home-child{
+    width: calc(25% - 30px);
+    min-height: 200px;
+    display: inline-block;
+    border:2px solid #738bbd;
+    box-shadow: 2px 2px 2px #67b7e4 ;
+    border-radius: 5px;
+    background-color: #314e8085;
+    transition: all 0.3s ease;
+}
+.home-child:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(103,183,228,0.4);
+}
+.home-child a{
+    color: #ffffff;
+    display: block;
+    height: 100%;
+    padding: 20px 0;
+}
+.home-child p{
+    margin: 15px 0;
+    font-size: 2rem;
+}
+.home-child p img{
+    width: 85px;
+    height: 85px;
+    transition: transform 0.3s ease;
+}
+.home-child:hover p img {
+    transform: scale(1.1);
+}
+.map_box{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.map_top{
+    position:absolute;
+    top:6%;
+    left: 0;
+    height: 35px;
+    width: 100%;
+    border-bottom: 1px solid #4b8df8;
+    background-color: rgba(255, 255, 255, 0.84);
+    z-index: 99;
+}
+.map_top>ul{
+    list-style: none;
+    font-size: 14px;
+    float: right;
+}
+.map_top>ul>li{
+    display: inline-block;
+    line-height: 35px;
+    padding: 0 10px;
+}
+.map_top>ul>li i{
+    margin-right: 5px;
+}
+.map_top>ul>li a{
+    color: #2E2D3C !important;
+}
+.map_top>ul .active,.map_top>ul>li .active{
+    color: #0D8BBD;
+}
+.map_select{
+    position: absolute;
+    top: 80px;
+    right: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    border: 1px solid rgba(84, 140, 247, 0.5);
+    width: 120px;
+    padding: 10px 0;
+    border-radius: 4px;
+    background: rgba(0, 21, 41, 0.9);
+    z-index: 1000;
+}
+
+.map_select p{
+    padding: 8px 15px;
+    color: #FFFFff;
+    font-size: 14px;
+}
+.map_select p input[type=checkbox]{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top:3px;
+    margin-right: 10px;
+}
+.icon{margin:3px 4px 0 0}
+.news_check{padding: 16px 15px 16px 15px;border: 1px #ccc solid;margin-bottom: 4px;background-color: #fff;box-shadow: 2px 2px 5px #b1afaf;}
+.check_left input{height: 28px;width: 198px;border-radius: 4px;border: 1px #ccc solid}
+.check_left button{height: 28px;border: none;margin-left: 6px;width: 65px;border-radius: 4px;background-color: #337ab7;color: #fff;padding-left: 18px;
+    background-image: url(../img/100_03.png);background-repeat: no-repeat;background-position: 11px 8px}
+
+.map_info_card {
+    position: absolute;
+    top: 80px;
+    left: 15px;
+    width: 200px;
+    background: rgba(0, 21, 41, 0.9);
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+    padding: 12px 15px;
+    border: 1px solid rgba(84, 140, 247, 0.5);
+}
